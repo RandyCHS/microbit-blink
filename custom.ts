@@ -3,6 +3,7 @@
  */
 //% weight=80 color=#cf9a1f icon="\uf140"
 namespace animations {
+    let sprites: game.LedSprite[] = []
     /**
      * Blink an LED at a particular interval (ms)
      * @param x horizontal led coordinate
@@ -15,7 +16,10 @@ namespace animations {
     //% x.fieldOptions.precision=1 y.fieldOptions.precision=1
     //% interval.shadow=timePicker
     export function blink(x:number, y: number, interval: number): void {
-        let sprite = game.createSprite(x, y)
+        // find an existing sprite
+        let sprite = sprites.find(s => s.x() == x && s.y() == y);
+        if (!sprite)
+            sprite = game.createSprite(x, y)
         sprite.setBlink(interval)
         sprite.blink()
     }
